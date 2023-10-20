@@ -369,7 +369,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 457380865}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: befb4c20ac425c14f8daabcca83d2719, type: 2}
   m_CullingMode: 0
@@ -557,6 +557,7 @@ GameObject:
   - component: {fileID: 1539602318}
   - component: {fileID: 1539602317}
   - component: {fileID: 1539602319}
+  - component: {fileID: 1539602320}
   m_Layer: 5
   m_Name: CurrentTotalEggs
   m_TagString: Untagged
@@ -694,5 +695,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTotalEggs: 0
-  clickIncrement: 100
+  clickIncrement: 1
+  EPS: 0
   eggsText: {fileID: 1539602317}
+--- !u!114 &1539602320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539602315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72e8618258973ee49a24dc7ee59c6396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EPS: 0
+  eggsCount: {fileID: 1539602315}
