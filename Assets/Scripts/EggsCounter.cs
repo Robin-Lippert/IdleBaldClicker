@@ -8,6 +8,7 @@ using System;
 public class EggsCounter : MonoBehaviour
 {
     public double currentTotalEggs = 0f;
+    public double totalEggs = 0f;
     public double clickIncrement = 1f;
     public double EPS = 0f;
     public TMP_Text eggsText;
@@ -18,6 +19,7 @@ public class EggsCounter : MonoBehaviour
     void Start()
     {
         eggsText = GetComponent<TMP_Text>();
+        EPS = UpdateCurrentEPS();
     }
 
     // Update is called once per frame
@@ -25,54 +27,21 @@ public class EggsCounter : MonoBehaviour
     {
 
         currentTotalEggs += EPS * Time.fixedDeltaTime;
+        totalEggs += EPS * Time.fixedDeltaTime;
         eggsText.text = $"{formatNumber(currentTotalEggs)} Eggs";
-       
-        /*
-        if(currentTotalEggs < bigNumberList[0])
-        {
-            strCurrentTotalEggs = Math.Floor(currentTotalEggs).ToString();
-        }
-        else if (currentTotalEggs >= bigNumberList[0] &&  currentTotalEggs < bigNumberList[1]) 
-        {
-            strCurrentTotalEggs = RoundDown(currentTotalEggs / bigNumberList[0], 2).ToString() + "k";
-        }
-        else if (currentTotalEggs >= bigNumberList[1] && currentTotalEggs < bigNumberList[2])
-        {
-            strCurrentTotalEggs = RoundDown(currentTotalEggs / bigNumberList[1], 2).ToString() + "m";
-        }
-        else if (currentTotalEggs >= bigNumberList[2] && currentTotalEggs < bigNumberList[3])
-        {
-            strCurrentTotalEggs = RoundDown(currentTotalEggs / bigNumberList[2], 2).ToString() + "b";
-        }
-        else if (currentTotalEggs >= bigNumberList[3] && currentTotalEggs < bigNumberList[4])
-        {
-            strCurrentTotalEggs = RoundDown(currentTotalEggs / bigNumberList[3], 2).ToString() + "t";
-        }
-        else if (currentTotalEggs >= bigNumberList[4] && currentTotalEggs < bigNumberList[5])
-        {
-            strCurrentTotalEggs = RoundDown(currentTotalEggs / bigNumberList[4], 2).ToString() + "aa";
-        }
-        else if (currentTotalEggs >= bigNumberList[5])
-        {
-            strCurrentTotalEggs = RoundDown(currentTotalEggs / bigNumberList[5], 2).ToString() + "ab";
-        }
-
-        eggsText.text = $"{strCurrentTotalEggs} Eggs";
-        */
-
 
     }
 
-    string formatNumber(double number)
+    public string formatNumber(double number)
     {
-        string[] bigNumberNotations = { "k", "m", "b", "t", "aa", "ab", "ac", "ad", "ae", "af", "ag", "ah", "ai", "aj", "ak", "al", "am", "an", "ao", "ap", "aq", "ar", "as", "at", "au", "av", "aw", "ax","ay", "az" };
-        bool highNumber = false;
+        string[] bigNumberNotations = { "k", "m", "b", "t", "aa", "ab", "ac", "ad", "ae", "af", "ag", "ah", "ai", "aj", "ak", "al", "am", "an", "ao", "ap", "aq", "ar", "as", "at", "au", "av", "aw", "ax","ay", "az","ba", "bb", "bc", "bd", "be", "bf", "bg", "bh", "bi", "bj", "bk", "bl", "bm", "bn", "bo", "bp", "bq", "br", "bs", "bt", "bu", "bv", "bw", "bx", "by", "bz", "ca" };
+        //bool highNumber = false;
         double bigNumber = 1000D;
         int tabPosition = -1;
         string notation;
         if (number >= bigNumber)
         {
-            highNumber = true;
+            //highNumber = true;
             while(number >= bigNumber) { bigNumber *= 1000; tabPosition++; }
             number /= (bigNumber /1000);
             notation = bigNumberNotations[tabPosition];
@@ -83,10 +52,19 @@ public class EggsCounter : MonoBehaviour
             notation = "";
             return RoundDown(number, 0) + notation;
         }
-        
-        
+    }
 
-        
+    public double UpdateCurrentEPS()
+    {
+        double currentEPS = 0;
+        GameObject[] generators = GameObject.FindGameObjectsWithTag("generator");
+        foreach (GameObject generator in generators) 
+        {
+            Generator generator1 = generator.GetComponent<Generator>();
+            currentEPS += generator1.totalCurrentEPS;
+        }
+        print(currentEPS);
+        return currentEPS;
     }
 
 
