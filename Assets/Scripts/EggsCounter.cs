@@ -12,6 +12,7 @@ public class EggsCounter : MonoBehaviour
     public double clickIncrement = 1f;
     public double EPS = 0f;
     public TMP_Text eggsText;
+    public TMP_Text epsText;
     string strCurrentTotalEggs;
     double[] bigNumberList = {Math.Pow(10,3), Math.Pow(10, 6), Math.Pow(10, 9), Math.Pow(10, 12), Math.Pow(10, 15), Math.Pow(10, 18) };
 
@@ -63,6 +64,7 @@ public class EggsCounter : MonoBehaviour
             Generator generator1 = generator.GetComponent<Generator>();
             currentEPS += generator1.totalCurrentEPS;
         }
+        epsText.text = currentEPS.ToString();
         print(currentEPS);
         return currentEPS;
     }
