@@ -19,6 +19,7 @@ public class Click : MonoBehaviour
     {
         animator.SetTrigger("Clicked");
         eggsCounter.currentTotalEggs += eggsCounter.clickIncrement;
+        eggsCounter.totalEggs += eggsCounter.clickIncrement;
         
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using System;
+using Unity.Collections.LowLevel.Unsafe;
+using UnityEngine.UI;
 
 public class Generator : MonoBehaviour
 {
@@ -15,7 +17,10 @@ public class Generator : MonoBehaviour
     double cost;
     public double costMultiplier = 1.1;
 
-    public GameObject eggsCount;
+    bool unlocked = false;
+    public GameObject greyObject;
+
+    //public GameObject eggsCount;
     EggsCounter eggsCounter;
     TMP_Text genText;
 
@@ -23,15 +28,30 @@ public class Generator : MonoBehaviour
     void Start()
     {
         genText = gameObject.transform.GetChild(0).GetComponent<TMP_Text>();
-        eggsCounter = eggsCount.GetComponent<EggsCounter>();
+        eggsCounter = FindObjectOfType<EggsCounter>();
         cost = baseCost;
-        genText.text = $"${cost}\n{gameObject.name}: {numberOfGenerators}";
+        genText.text = $"${cost}\n???????: {numberOfGenerators}";
     }
 
     // Update is called once per frame
     void FixedUpdate()
-    {
+    {   
         totalCurrentEPS = indivdualEPS * numberOfGenerators * upgradeBonus;
+        if (cost <= eggsCounter.totalEggs && !unlocked) 
+        {
+            genText.text = $"${cost}\n{gameObject.name}: {numberOfGenerators}";
+            unlocked=true;
+            greyObject.SetActive(false);
+        }
+
+        if (cost <= eggsCounter.currentTotalEggs)
+        {
+            greyObject.SetActive(false);
+        }
+        else
+        {
+            greyObject.SetActive(true);
+        }
     }
     
     public void ClickButton()

@@ -64,7 +64,7 @@ public class EggsCounter : MonoBehaviour
             Generator generator1 = generator.GetComponent<Generator>();
             currentEPS += generator1.totalCurrentEPS;
         }
-        epsText.text = currentEPS.ToString();
+        epsText.text = currentEPS.ToString() + " EPS";
         print(currentEPS);
         return currentEPS;
     }
