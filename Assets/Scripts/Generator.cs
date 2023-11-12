@@ -12,7 +12,7 @@ public class Generator : MonoBehaviour
     public double totalCurrentEPS = 0;
     public double indivdualEPS = 1;
     public int numberOfGenerators = 0;
-    public double upgradeBonus = 1;
+    public double upgradeMultiplier = 1;
     public double baseCost = 10;
     double cost;
     public double costMultiplier = 1.1;
@@ -35,12 +35,12 @@ public class Generator : MonoBehaviour
 
     // Update is called once per frame
     void FixedUpdate()
-    {   
-        totalCurrentEPS = indivdualEPS * numberOfGenerators * upgradeBonus;
-        if (cost <= eggsCounter.totalEggs && !unlocked) 
+    {
+        totalCurrentEPS = updateGenEPS();
+        if (cost <= eggsCounter.totalEggs && !unlocked)
         {
             genText.text = $"${cost}\n{gameObject.name}: {numberOfGenerators}";
-            unlocked=true;
+            unlocked = true;
             greyObject.SetActive(false);
         }
 
@@ -52,19 +52,25 @@ public class Generator : MonoBehaviour
         {
             greyObject.SetActive(true);
         }
+
     }
-    
+
     public void ClickButton()
     {
-        if(cost <= eggsCounter.currentTotalEggs)
+        if (cost <= eggsCounter.currentTotalEggs)
         {
             eggsCounter.currentTotalEggs -= cost;
             numberOfGenerators++;
             cost *= costMultiplier;
             genText.text = $"${eggsCounter.formatNumber(cost)}\n{gameObject.name}: {numberOfGenerators}";
-            
+
         }
-        totalCurrentEPS = indivdualEPS * numberOfGenerators * upgradeBonus;
+        totalCurrentEPS = updateGenEPS();
         eggsCounter.EPS = eggsCounter.UpdateCurrentEPS();
+    }
+
+    public double updateGenEPS()
+    {
+        return indivdualEPS * numberOfGenerators * upgradeMultiplier;
     }
 }

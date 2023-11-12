@@ -1,18 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GeneratorUpgrades : MonoBehaviour
-{
-    // Start is called before the first frame update
+{ 
+
+    public GameObject genObject;
+    Generator generator;
+    TMP_Text buttonText;
+    EggsCounter eggsCounter;
+
+    public double multiplier = 1;
     void Start()
     {
-        
+        generator = genObject.GetComponent<Generator>();
+        buttonText = gameObject.GetComponentInChildren<TMP_Text>();
+        eggsCounter = FindObjectOfType<EggsCounter>();
+        buttonText.text = $"{genObject.name}\nupgrade";
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnClick()
     {
-        
+        generator.upgradeMultiplier *= multiplier;
+        generator.totalCurrentEPS = generator.updateGenEPS();
+        eggsCounter.EPS = eggsCounter.UpdateCurrentEPS();
+        gameObject.SetActive(false);
     }
 }
