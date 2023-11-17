@@ -10,7 +10,8 @@ public class Generator : MonoBehaviour
 {
 
     public double totalCurrentEPS = 0;
-    public double indivdualEPS = 1;
+    public double startingEPS = 1;
+    public double individualEPS;
     public int numberOfGenerators = 0;
     public double upgradeMultiplier = 1;
     public double baseCost = 10;
@@ -20,17 +21,20 @@ public class Generator : MonoBehaviour
     bool unlocked = false;
     public GameObject greyObject;
 
-    //public GameObject eggsCount;
     EggsCounter eggsCounter;
     TMP_Text genText;
+    TooltipTrigger tooltipTrigger;
 
     // Start is called before the first frame update
     void Start()
     {
         genText = gameObject.transform.GetChild(0).GetComponent<TMP_Text>();
         eggsCounter = FindObjectOfType<EggsCounter>();
+        tooltipTrigger = gameObject.GetComponent<TooltipTrigger>();
         cost = baseCost;
         genText.text = $"${cost}\n???????: {numberOfGenerators}";
+        toolTip();
+
     }
 
     // Update is called once per frame
@@ -52,6 +56,7 @@ public class Generator : MonoBehaviour
         {
             greyObject.SetActive(true);
         }
+        toolTip();
 
     }
 
@@ -67,10 +72,20 @@ public class Generator : MonoBehaviour
         }
         totalCurrentEPS = updateGenEPS();
         eggsCounter.EPS = eggsCounter.UpdateCurrentEPS();
+        toolTip();
     }
 
     public double updateGenEPS()
     {
-        return indivdualEPS * numberOfGenerators * upgradeMultiplier;
+        individualEPS = startingEPS * upgradeMultiplier;
+        return individualEPS * numberOfGenerators;
+    }
+
+    void toolTip()
+    {
+        tooltipTrigger.header = $"{gameObject.name}";
+        tooltipTrigger.content = $"each makes <b>{individualEPS} eggs</b> per second \n" +
+            $"{numberOfGenerators} {gameObject.name} make <b>{totalCurrentEPS} eggs</b> per second" +
+            $"\n {((totalCurrentEPS / eggsCounter.EPS) * 100).ToString("f0")}% of total EPS";
     }
 }
