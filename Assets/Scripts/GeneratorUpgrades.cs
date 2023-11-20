@@ -7,7 +7,7 @@ public class GeneratorUpgrades : MonoBehaviour
 { 
 
     public GameObject genObject;
-    Generator generator;
+    public Generator generator;
     TMP_Text buttonText;
     EggsCounter eggsCounter;
 

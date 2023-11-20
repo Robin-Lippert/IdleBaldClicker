@@ -1083,6 +1083,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   genObject: {fileID: 1481591349}
+  generator: {fileID: 1481591351}
   multiplier: 2
 --- !u!114 &433966269
 MonoBehaviour:
@@ -4641,7 +4642,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1651934553}
   m_HandleRect: {fileID: 1651934552}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -5808,6 +5809,7 @@ MonoBehaviour:
   totalEggs: 0
   clickIncrement: 1
   EPS: 0
+  totalMultiplier: 1
   eggsText: {fileID: 1539602317}
   epsText: {fileID: 553047487}
 --- !u!1 &1572355176

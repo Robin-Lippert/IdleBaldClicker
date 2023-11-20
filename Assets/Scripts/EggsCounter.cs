@@ -11,10 +11,10 @@ public class EggsCounter : MonoBehaviour
     public double totalEggs = 0f;
     public double clickIncrement = 1f;
     public double EPS = 0f;
+    public float totalMultiplier = 1;
     public TMP_Text eggsText;
     public TMP_Text epsText;
-    string strCurrentTotalEggs;
-    double[] bigNumberList = {Math.Pow(10,3), Math.Pow(10, 6), Math.Pow(10, 9), Math.Pow(10, 12), Math.Pow(10, 15), Math.Pow(10, 18) };
+   
 
     // Start is called before the first frame update
     void Start()
@@ -64,6 +64,7 @@ public class EggsCounter : MonoBehaviour
             Generator generator1 = generator.GetComponent<Generator>();
             currentEPS += generator1.totalCurrentEPS;
         }
+        currentEPS *= totalMultiplier;
         epsText.text = currentEPS.ToString() + " EPS";
         print(currentEPS);
         return currentEPS;
