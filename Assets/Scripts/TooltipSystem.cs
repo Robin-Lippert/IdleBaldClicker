@@ -15,9 +15,9 @@ public class TooltipSystem : MonoBehaviour
         current = this; 
     }
 
-    public static void Show(string content, string header = "")
+    public static void Show(string content, bool pivotLeft, string header = "" )
     {
-        current.tooltip.SetText(content, header);
+        current.tooltip.SetText(content, pivotLeft, header);
         current.tooltip.gameObject.SetActive(true);
     }
 

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class Generator : MonoBehaviour
 {
-
+    //[System.NonSerialized]
     public double totalCurrentEPS = 0;
     public double startingEPS = 1;
     public double individualEPS;
@@ -83,6 +83,8 @@ public class Generator : MonoBehaviour
 
     void toolTip()
     {
+
+
         tooltipTrigger.header = $"{gameObject.name}";
         tooltipTrigger.content = $"each makes <b>{individualEPS} eggs</b> per second \n" +
             $"{numberOfGenerators} {gameObject.name} make <b>{totalCurrentEPS} eggs</b> per second" +

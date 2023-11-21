@@ -11,10 +11,12 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [Multiline()]
     public string content;
 
+    public bool pivotLeft = true;
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         
-        TooltipSystem.Show(content, header);
+        TooltipSystem.Show(content, pivotLeft, header);
     }
 
     public void OnPointerExit(PointerEventData eventData)
