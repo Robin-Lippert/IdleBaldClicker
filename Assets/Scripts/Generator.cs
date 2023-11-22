@@ -83,11 +83,30 @@ public class Generator : MonoBehaviour
 
     void toolTip()
     {
+        double percent;
+        if(totalCurrentEPS == 0)
+        {
+            percent = 0;
+        }
+        else
+        {
+            percent = (totalCurrentEPS / eggsCounter.EPS) * 100;
+        }
 
+        string name;
 
-        tooltipTrigger.header = $"{gameObject.name}";
+        if (!unlocked)
+        {
+            name = "???????";
+        }
+        else
+        {
+            name = gameObject.name;
+        }
+
+        tooltipTrigger.header = $"{name}";
         tooltipTrigger.content = $"each makes <b>{individualEPS} eggs</b> per second \n" +
-            $"{numberOfGenerators} {gameObject.name} make <b>{totalCurrentEPS} eggs</b> per second" +
-            $"\n {((totalCurrentEPS / eggsCounter.EPS) * 100).ToString("f0")}% of total EPS";
+            $"{numberOfGenerators} {name} make <b>{totalCurrentEPS} eggs</b> per second" +
+            $"\n {percent.ToString("f0")}% of total EPS";
     }
 }

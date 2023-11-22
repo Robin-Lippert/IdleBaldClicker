@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 
+
 //[ExecuteInEditMode()]
 public class Tooltip : MonoBehaviour
 {
@@ -17,17 +18,17 @@ public class Tooltip : MonoBehaviour
     public int characterWrapLimit;
 
     public RectTransform rectTransform;
-    //public 
+    public RectTransform canvasTransform;
 
     float pivotX = 0;
 
-    public float startPosX;
+    float startPosX;
     float posX;
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-        startPosX = rectTransform.position.x;
+        startPosX = transform.localPosition.x;
         posX = startPosX;
     }
 
@@ -45,15 +46,16 @@ public class Tooltip : MonoBehaviour
 
         if (pivotLeft)
         {
-            //pivotX = 0;
+            pivotX = 0;
             posX = startPosX;
         }
-        else
+        else if (!pivotLeft)
         {
-           //pivotX = 1;
-            posX = Screen.height-startPosX;
+           pivotX = 1;
+            posX = -startPosX;
         }
-            contentField.text = content;
+        
+        contentField.text = content;
 
         int headerLength = headerField.text.Length;
         int contentLength = contentField.text.Length;
@@ -71,11 +73,9 @@ public class Tooltip : MonoBehaviour
         }
 
         float positionY = Input.mousePosition.y;
-       
-        float pivotY = positionY / Screen.height;
 
-        rectTransform.pivot = new Vector2(pivotX, pivotY);
-        transform.position = new Vector2(posX, positionY);
+        rectTransform.pivot = new Vector2(pivotX, 0.5f);
+        transform.localPosition = new Vector2(posX, positionY - canvasTransform.rect.height/2);
         //print(rectTransform.pivot);
     }
 }
