@@ -17,16 +17,17 @@ public class Tooltip : MonoBehaviour
     public int characterWrapLimit;
 
     public RectTransform rectTransform;
+    //public 
 
     float pivotX = 0;
 
-    public float startPosX = -215;
+    public float startPosX;
     float posX;
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-        //startPosX = rectTransform.position.x;
+        startPosX = rectTransform.position.x;
         posX = startPosX;
     }
 
@@ -50,7 +51,7 @@ public class Tooltip : MonoBehaviour
         else
         {
            //pivotX = 1;
-            posX = -startPosX;
+            posX = Screen.height-startPosX;
         }
             contentField.text = content;
 
@@ -74,7 +75,7 @@ public class Tooltip : MonoBehaviour
         float pivotY = positionY / Screen.height;
 
         rectTransform.pivot = new Vector2(pivotX, pivotY);
-        transform.position = new Vector2(215, positionY);
+        transform.position = new Vector2(posX, positionY);
         //print(rectTransform.pivot);
     }
 }
