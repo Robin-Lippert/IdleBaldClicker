@@ -20,6 +20,7 @@ public class Generator : MonoBehaviour
 
     bool unlocked = false;
     public GameObject greyObject;
+    string costColor = "\"red\"";
 
     EggsCounter eggsCounter;
     TMP_Text genText;
@@ -32,7 +33,7 @@ public class Generator : MonoBehaviour
         eggsCounter = FindObjectOfType<EggsCounter>();
         tooltipTrigger = gameObject.GetComponent<TooltipTrigger>();
         cost = baseCost;
-        genText.text = $"${cost}\n???????: {numberOfGenerators}";
+        genText.text = $"<color={costColor}>${cost}</color>\n???????: {numberOfGenerators}";
         toolTip();
 
     }
@@ -41,21 +42,26 @@ public class Generator : MonoBehaviour
     void FixedUpdate()
     {
         totalCurrentEPS = updateGenEPS();
-        if (cost <= eggsCounter.totalEggs && !unlocked)
-        {
-            genText.text = $"${cost}\n{gameObject.name}: {numberOfGenerators}";
-            unlocked = true;
-            greyObject.SetActive(false);
-        }
 
         if (cost <= eggsCounter.currentTotalEggs)
         {
             greyObject.SetActive(false);
+            costColor = "#006400";
         }
         else
         {
             greyObject.SetActive(true);
+            costColor = "\"red\"";
         }
+
+        if (cost <= eggsCounter.totalEggs && !unlocked)
+        {
+            genText.text = $"<color={costColor}>${cost}</color>\n{gameObject.name}: {numberOfGenerators}";
+            unlocked = true;
+            greyObject.SetActive(false);
+        }
+
+
         toolTip();
 
     }
@@ -67,7 +73,7 @@ public class Generator : MonoBehaviour
             eggsCounter.currentTotalEggs -= cost;
             numberOfGenerators++;
             cost *= costMultiplier;
-            genText.text = $"${eggsCounter.formatNumber(cost)}\n{gameObject.name}: {numberOfGenerators}";
+            genText.text = $"<color={costColor}>${eggsCounter.formatNumber(cost)}</color>\n{gameObject.name}: {numberOfGenerators}";
 
         }
         totalCurrentEPS = updateGenEPS();

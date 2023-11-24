@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ClickUpgrades : MonoBehaviour
 {
+    public double cost;
+    public bool bought = false;
+
     // Start is called before the first frame update
     void Start()
     {

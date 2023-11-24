@@ -74,8 +74,10 @@ public class Tooltip : MonoBehaviour
 
         float positionY = Input.mousePosition.y;
 
-        rectTransform.pivot = new Vector2(pivotX, 0.5f);
-        transform.localPosition = new Vector2(posX, positionY - canvasTransform.rect.height/2);
-        //print(rectTransform.pivot);
+        float pivotY = positionY / canvasTransform.rect.height;
+
+        rectTransform.pivot = new Vector2(pivotX, pivotY);
+        transform.localPosition = new Vector2(posX, positionY - Screen.height/2);
+        //print($"local pos {transform.localPosition} pos {transform.position} mouse pos {Input.mousePosition}");
     }
 }
