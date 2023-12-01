@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class Generator : MonoBehaviour
 {
-    //[System.NonSerialized]
+   
     public double totalCurrentEPS = 0;
     public double startingEPS = 1;
     public double individualEPS;
@@ -16,7 +16,7 @@ public class Generator : MonoBehaviour
     public double upgradeMultiplier = 1;
     public double baseCost = 10;
     double cost;
-    public double costMultiplier = 1.1;
+    public double costMultiplier = 1.1;// the multiplier that gets aplied to the cost each time a new gen is bought
 
     bool unlocked = false;
     public GameObject greyObject;
@@ -33,7 +33,7 @@ public class Generator : MonoBehaviour
         eggsCounter = FindObjectOfType<EggsCounter>();
         tooltipTrigger = gameObject.GetComponent<TooltipTrigger>();
         cost = baseCost;
-        genText.text = $"<color={costColor}>${cost}</color>\n???????: {numberOfGenerators}";
+        genText.text = $"<color={costColor}>${cost}</color>\n???????: {numberOfGenerators}"; // format text of button
         toolTip();
 
     }
@@ -43,6 +43,7 @@ public class Generator : MonoBehaviour
     {
         totalCurrentEPS = updateGenEPS();
 
+        // get the colour that the cost text needs to be
         if (cost <= eggsCounter.currentTotalEggs)
         {
             greyObject.SetActive(false);
@@ -54,6 +55,7 @@ public class Generator : MonoBehaviour
             costColor = "\"red\"";
         }
 
+        //change color of cost and format text
         if (cost <= eggsCounter.totalEggs && !unlocked)
         {
             genText.text = $"<color={costColor}>${cost}</color>\n{gameObject.name}: {numberOfGenerators}";
@@ -66,6 +68,9 @@ public class Generator : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// add 1 gen and update the total eps based on the value of that gen
+    /// </summary>
     public void ClickButton()
     {
         if (cost <= eggsCounter.currentTotalEggs)
@@ -87,6 +92,9 @@ public class Generator : MonoBehaviour
         return individualEPS * numberOfGenerators;
     }
 
+    /// <summary>
+    /// Formats tool tip of genorator and gets the percent of the eps it contributes
+    /// </summary>
     void toolTip()
     {
         double percent;

@@ -34,16 +34,18 @@ public class Tooltip : MonoBehaviour
 
     public void SetText(string content, bool pivotLeft, string header = "")
     {
-        if (string.IsNullOrEmpty(header))
+        if (string.IsNullOrEmpty(header)) // check if there is header if not disable header text
         {
             headerField.gameObject.SetActive(false);
         }
         else
         {
-            headerField.gameObject.SetActive(true);
+            headerField.gameObject.SetActive(true); 
             headerField.text = header;
         }
 
+
+        // choose which side of screen to pivot tool tip to
         if (pivotLeft)
         {
             pivotX = 0;
@@ -60,7 +62,7 @@ public class Tooltip : MonoBehaviour
         int headerLength = headerField.text.Length;
         int contentLength = contentField.text.Length;
 
-        layoutElement.enabled = (headerLength > characterWrapLimit || contentLength > characterWrapLimit) ? true : false;
+        layoutElement.enabled = (headerLength > characterWrapLimit || contentLength > characterWrapLimit) ? true : false; // if text is to long set max width and wrap
     }
     private void Update()
     {
@@ -72,12 +74,11 @@ public class Tooltip : MonoBehaviour
             layoutElement.enabled = (headerLength > characterWrapLimit || contentLength > characterWrapLimit) ? true : false;
         }
 
+        
+        /// get position of mouse and move the tool tip based on that
         float positionY = Input.mousePosition.y;
-
         float pivotY = positionY / canvasTransform.rect.height;
-
         rectTransform.pivot = new Vector2(pivotX, pivotY);
         transform.localPosition = new Vector2(posX, positionY - Screen.height/2);
-        //print($"local pos {transform.localPosition} pos {transform.position} mouse pos {Input.mousePosition}");
     }
 }

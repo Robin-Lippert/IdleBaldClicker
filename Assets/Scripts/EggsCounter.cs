@@ -26,13 +26,18 @@ public class EggsCounter : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
+        // updates the current and total eggs and formats for display
         currentTotalEggs += EPS * Time.fixedDeltaTime;
         totalEggs += EPS * Time.fixedDeltaTime;
         eggsText.text = $"{formatNumber(currentTotalEggs)} Eggs";
 
     }
 
+    /// <summary>
+    /// A function that formats large numbers into a more readable form
+    /// </summary>
+    /// <param name="number">The large number to format</param>
+    /// <returns>The number as a formated string</returns>
     public string formatNumber(double number)
     {
         string[] bigNumberNotations = { "k", "m", "b", "t", "aa", "ab", "ac", "ad", "ae", "af", "ag", "ah", "ai", "aj", "ak", "al", "am", "an", "ao", "ap", "aq", "ar", "as", "at", "au", "av", "aw", "ax","ay", "az","ba", "bb", "bc", "bd", "be", "bf", "bg", "bh", "bi", "bj", "bk", "bl", "bm", "bn", "bo", "bp", "bq", "br", "bs", "bt", "bu", "bv", "bw", "bx", "by", "bz", "ca" };
@@ -55,6 +60,11 @@ public class EggsCounter : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// A function to update the total Eggs per sec based on each generator
+    /// </summary>
+    /// <returns>The current eggs per sec</returns>
     public double UpdateCurrentEPS()
     {
         double currentEPS = 0;
@@ -70,7 +80,12 @@ public class EggsCounter : MonoBehaviour
         return currentEPS;
     }
 
-
+    /// <summary>
+    /// a better flooring function
+    /// </summary>
+    /// <param name="number"></param>
+    /// <param name="decimalPlaces"></param>
+    /// <returns></returns>
     public double RoundDown(double number, int decimalPlaces)
     {
         return Math.Floor(number * Math.Pow(10, decimalPlaces)) / Math.Pow(10, decimalPlaces);

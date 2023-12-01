@@ -27,7 +27,6 @@ public class GeneratorUpgrades : MonoBehaviour, IPointerEnterHandler
     void Start()
     {
         tooltipTrigger = GetComponent<TooltipTrigger>();
-        generator = genObject.GetComponent<Generator>();
         buttonText = gameObject.GetComponentInChildren<TMP_Text>();
         eggsCounter = FindObjectOfType<EggsCounter>();
         buttonText.text = $"{gameObject.name}";
@@ -36,7 +35,7 @@ public class GeneratorUpgrades : MonoBehaviour, IPointerEnterHandler
 
     private void FixedUpdate()
     {
-        if(cost <= eggsCounter.currentTotalEggs)
+        if(cost <= eggsCounter.currentTotalEggs) // if cant afford upgrade grey it out
         {
             greyObject.SetActive(false);
         }
@@ -46,9 +45,13 @@ public class GeneratorUpgrades : MonoBehaviour, IPointerEnterHandler
         }
     }
 
+    /// <summary>
+    /// format the tooltip based on the cost and change color of text
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (eggsCounter.currentTotalEggs >= cost)
+        if (eggsCounter.currentTotalEggs >= cost) 
         {
             costColor = "#006400";
         }
@@ -64,7 +67,7 @@ public class GeneratorUpgrades : MonoBehaviour, IPointerEnterHandler
 
     public void OnClick()
     {
-        if (eggsCounter.currentTotalEggs >= cost && !bought)
+        if (eggsCounter.currentTotalEggs >= cost && !bought) // apply upgrade and remove disable it
         {
             generator.upgradeMultiplier *= multiplier;
             generator.totalCurrentEPS = generator.updateGenEPS();
