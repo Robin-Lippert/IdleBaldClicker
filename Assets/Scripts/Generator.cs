@@ -55,7 +55,7 @@ public class Generator : MonoBehaviour
             costColor = "\"red\"";
         }
 
-        genText.text = $"<color={costColor}>${eggsCounter.formatNumber(cost)}</color>\n{gameObject.name}: {numberOfGenerators}";
+        
 
         //change color of cost and format text
         if (cost <= eggsCounter.totalEggs && !unlocked)
@@ -63,8 +63,10 @@ public class Generator : MonoBehaviour
            
             unlocked = true;
             greyObject.SetActive(false);
+            return;
         }
-
+        if (unlocked) 
+        genText.text = $"<color={costColor}>${eggsCounter.formatNumber(cost)}</color>\n{gameObject.name}: {numberOfGenerators}";
 
         toolTip();
 
