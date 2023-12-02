@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.EventSystems;
 
-public class GeneratorUpgrades : MonoBehaviour, IPointerEnterHandler
+public class GeneratorUpgrades : MonoBehaviour
 {
     public bool bought = false;
     public double cost = 100;
@@ -29,8 +29,9 @@ public class GeneratorUpgrades : MonoBehaviour, IPointerEnterHandler
         tooltipTrigger = GetComponent<TooltipTrigger>();
         buttonText = gameObject.GetComponentInChildren<TMP_Text>();
         eggsCounter = FindObjectOfType<EggsCounter>();
-        buttonText.text = $"{gameObject.name}";
+        buttonText.text = $"<color={costColor}>${eggsCounter.formatNumber(cost)}</color>\n{gameObject.name}";
         tooltipContent = tooltipTrigger.content;
+        toolTip();
     }
 
     private void FixedUpdate()
@@ -43,27 +44,10 @@ public class GeneratorUpgrades : MonoBehaviour, IPointerEnterHandler
         {
             greyObject.SetActive(true);
         }
+        buttonText.text = $"<color={costColor}>${eggsCounter.formatNumber(cost)}</color>\n{gameObject.name}";
+        toolTip();
     }
 
-    /// <summary>
-    /// format the tooltip based on the cost and change color of text
-    /// </summary>
-    /// <param name="eventData"></param>
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (eggsCounter.currentTotalEggs >= cost) 
-        {
-            costColor = "#006400";
-        }
-        else
-        {
-            costColor = "\"red\"";
-        }
-
-        tooltipTrigger.header = $"<color={costColor}>${cost}</color>";
-    }
-
-    
 
     public void OnClick()
     {
@@ -77,5 +61,22 @@ public class GeneratorUpgrades : MonoBehaviour, IPointerEnterHandler
             gameObject.SetActive(false);
             
         }
+    }
+
+    /// <summary>
+    /// format the tooltip based on the cost and change color of text
+    /// </summary>
+    void toolTip()
+    {
+        if (eggsCounter.currentTotalEggs >= cost)
+        {
+            costColor = "#006400";
+        }
+        else
+        {
+            costColor = "\"red\"";
+        }
+
+        tooltipTrigger.header = $"<color={costColor}>${cost}</color>";
     }
 }

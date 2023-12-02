@@ -55,10 +55,12 @@ public class Generator : MonoBehaviour
             costColor = "\"red\"";
         }
 
+        genText.text = $"<color={costColor}>${eggsCounter.formatNumber(cost)}</color>\n{gameObject.name}: {numberOfGenerators}";
+
         //change color of cost and format text
         if (cost <= eggsCounter.totalEggs && !unlocked)
         {
-            genText.text = $"<color={costColor}>${cost}</color>\n{gameObject.name}: {numberOfGenerators}";
+           
             unlocked = true;
             greyObject.SetActive(false);
         }
@@ -78,7 +80,7 @@ public class Generator : MonoBehaviour
             eggsCounter.currentTotalEggs -= cost;
             numberOfGenerators++;
             cost *= costMultiplier;
-            genText.text = $"<color={costColor}>${eggsCounter.formatNumber(cost)}</color>\n{gameObject.name}: {numberOfGenerators}";
+            
 
         }
         totalCurrentEPS = updateGenEPS();

@@ -34,11 +34,13 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenu.SetActive(true);
         isPaused = true;
+        Time.timeScale = 0f;
     }
 
     public void resumeGame()
     {
         pauseMenu.SetActive(false);
         isPaused = false;
+        Time.timeScale = 1f;
     }
 }

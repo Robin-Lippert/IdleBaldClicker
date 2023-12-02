@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ClickUpgrades : MonoBehaviour, IPointerEnterHandler
+public class ClickUpgrades : MonoBehaviour
 {
     public bool bought = false;
     public double cost = 100;
@@ -28,8 +28,9 @@ public class ClickUpgrades : MonoBehaviour, IPointerEnterHandler
         tooltipTrigger = GetComponent<TooltipTrigger>();
         buttonText = gameObject.GetComponentInChildren<TMP_Text>();
         eggsCounter = FindObjectOfType<EggsCounter>();
-        buttonText.text = $"{gameObject.name}";
+        buttonText.text = $"<color={costColor}>${eggsCounter.formatNumber(cost)}</color>\n{gameObject.name}";
         tooltipContent = tooltipTrigger.content;
+        toolTip();
     }
 
     // Update is called once per frame
@@ -43,6 +44,10 @@ public class ClickUpgrades : MonoBehaviour, IPointerEnterHandler
         {
             greyObject.SetActive(true);
         }
+
+        buttonText.text = $"<color={costColor}>${eggsCounter.formatNumber(cost)}</color>\n{gameObject.name}";
+        toolTip();
+
     }
 
     public void OnClick()
@@ -58,7 +63,7 @@ public class ClickUpgrades : MonoBehaviour, IPointerEnterHandler
         }
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    void toolTip()
     {
         if (eggsCounter.currentTotalEggs >= cost)
         {

@@ -18,7 +18,7 @@ public class UpgradeShower : MonoBehaviour
                 GeneratorUpgrades genUpgrade = upgrade.GetComponent<GeneratorUpgrades>();
                 if (genUpgrade.cost <= eggsCounter.totalEggs && !genUpgrade.bought)
                 {
-                    print("works");
+                    //rint("works");
                     upgrade.gameObject.SetActive(true);
                 }
             }
