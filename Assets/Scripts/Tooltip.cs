@@ -76,9 +76,9 @@ public class Tooltip : MonoBehaviour
 
         
         /// get position of mouse and move the tool tip based on that
-        float positionY = Input.mousePosition.y;
+        float positionY = (Input.mousePosition.y / Screen.height) * canvasTransform.rect.height;
         float pivotY = positionY / canvasTransform.rect.height;
         rectTransform.pivot = new Vector2(pivotX, pivotY);
-        transform.localPosition = new Vector2(posX, positionY - Screen.height/2);
+        transform.localPosition = new Vector2(posX, positionY - canvasTransform.rect.height/2);
     }
 }
