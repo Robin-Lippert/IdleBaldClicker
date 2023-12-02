@@ -62,7 +62,6 @@ public class Generator : MonoBehaviour
         {
            
             unlocked = true;
-            greyObject.SetActive(false);
             return;
         }
         if (unlocked) 
